@@ -29,10 +29,10 @@ export default class Camera {
 
   createOrthographicCamera() {
     this.orthographicCamera = new THREE.OrthographicCamera(
-      (-this.sizes.aspect * this.sizes.frustrum) / 1.6,
-      (this.sizes.aspect * this.sizes.frustrum) / 1.6,
-      this.sizes.frustrum / 1.6,
-      -this.sizes.frustrum / 1.6,
+      (-this.sizes.aspect * this.sizes.frustrum) / 1.4,
+      (this.sizes.aspect * this.sizes.frustrum) / 1.4,
+      this.sizes.frustrum / 1.4,
+      -this.sizes.frustrum / 1.4,
       -50,
       50
     );

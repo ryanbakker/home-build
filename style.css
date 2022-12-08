@@ -12,10 +12,41 @@ body {
   color: var(--text-black);
 }
 
+h1,
+section,
+p,
+span,
+svg {
+  transition: background-color 0.8s, color 0.5s;
+}
+
 :root {
-  --text-black: #333332;
-  --primary-color: #faf4e5;
-  --primary-pink: #e5a1aa;
+  /* Light Theme */
+  --color-text-light: #333332;
+  --color-bg-light: #faf4e5;
+  --color-pink-light: #e5a1aa;
+  --color-green-light: #7ad0ac;
+  --color-blue-light: #8395cd;
+
+  /* Dark Theme */
+  --color-text-dark: #faf4e5;
+  --color-bg-dark: #8395cd;
+}
+
+.light-theme {
+  --color-text: var(--color-text-light);
+  --color-bg: var(--color-bg-light);
+  --color-pink: var(--color-pink-light);
+  --color-green: var(--color-green-light);
+  --color-blue: var(--color-blue-light);
+}
+
+.dark-theme {
+  --color-text: var(--color-text-dark);
+  --color-bg: var(--color-bg-dark);
+  --color-pink: var(--color-text-dark);
+  --color-green: var(--color-text-dark);
+  --color-blue: var(--color-text-dark);
 }
 
 /* Experience */
@@ -44,6 +75,61 @@ body {
   position: relative;
 }
 
+/* Light / Dark Mode Toggle Switch */
+
+.toggle-bar {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  top: 30px;
+  right: 48px;
+  z-index: 10000;
+}
+
+.sun-wrapper,
+.moon-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-text);
+}
+
+.toggle-button {
+  cursor: pointer;
+  position: relative;
+  width: 56px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-pink);
+  border-radius: 1000px;
+  margin: 0px 16px;
+  border: none;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.toggle-circle {
+  position: absolute;
+  left: 6px;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-bg);
+  transition: all 0.2s ease-in-out;
+}
+
+.toggle-button:hover .toggle-circle {
+  transform: scale(0.85);
+}
+
+.slide {
+  left: 30px;
+}
+
 /* Formatting */
 
 .section-margin {
@@ -55,7 +141,7 @@ body {
   width: 50%;
   padding: 1000px 4%;
   margin: 0;
-  background-color: var(--primary-color);
+  background-color: var(--color-bg);
 }
 
 .left {
@@ -64,6 +150,86 @@ body {
 
 .right {
   margin-left: auto;
+}
+
+.section-intro-wrapper {
+  position: relative;
+  padding: 20% 5%;
+  border-bottom: 2px solid var(--color-pink);
+  padding-bottom: 400px;
+}
+
+.section-detail-wrapper {
+  position: relative;
+  padding: 20% 5%;
+}
+
+.section-heading {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.8;
+  margin-top: 64px;
+  color: var(--color-text);
+}
+
+.section-text {
+  line-height: 2;
+  margin-top: 18px;
+  font-size: 16px;
+  color: var(--color-text);
+}
+
+/* Title Decoration */
+
+.section-title {
+  position: relative;
+  color: var(--color-pink);
+}
+
+.section-title-text {
+  display: block;
+  font-size: 40px;
+  font-weight: 500;
+  transform-origin: left;
+  transform: skewY(25deg);
+  z-index: 5;
+  text-transform: uppercase;
+  color: var(--color-pink);
+}
+
+.style-one,
+.style-two,
+.style-three {
+  position: absolute;
+  display: block;
+  width: 100%;
+  max-width: 278px;
+  height: 60px;
+  border: 1px solid var(--color-pink);
+  transform-origin: left;
+  transform: skewY(-25deg);
+}
+
+.style-one {
+  top: 0px;
+}
+
+.style-two {
+  top: 80px;
+}
+
+.style-three {
+  top: 80px;
+  transform: skewY(25deg);
+  background-color: var(--color-pink);
+}
+
+.section-number {
+  position: absolute;
+  bottom: 15px;
+  right: 0;
+  color: var(--color-pink);
+  font-size: 24px;
 }
 
 /* Hero Section */
@@ -85,23 +251,62 @@ body {
   position: absolute;
   bottom: 200px;
   left: 0;
+  color: var(--color-text);
 }
 
 .hero-second {
   position: absolute;
   top: calc(50% - 120px);
   right: 0;
+  color: var(--color-text);
 }
 
 .hero-main-title {
   font-size: 64px;
+  color: var(--color-text);
 }
 
 .hero-main-description {
   font-size: 18px;
+  color: var(--color-text);
 }
 
 .hero-second-subheading {
   font-size: 26px;
   text-transform: uppercase;
+  color: var(--color-text);
+}
+
+/* Colors Override */
+
+.blue-text {
+  color: var(--color-blue);
+}
+
+.blue-border {
+  border-color: var(--color-blue);
+}
+
+.blue-bg {
+  background-color: var(--color-blue);
+}
+
+.green-text {
+  color: var(--color-green);
+}
+
+.green-border {
+  border-color: var(--color-green);
+}
+
+.green-bg {
+  background-color: var(--color-green);
+}
+
+/* Media Queries */
+
+@media (max-width: 968px) {
+  .section {
+    width: 100%;
+  }
 }

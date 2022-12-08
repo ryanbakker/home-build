@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import Experience from "../Experience";
 import GSAP from "gsap";
+import { RectAreaLightHelper } from "three/examples/jsm/helpers/RectAreaLightHelper";
 
 export default class Room {
   constructor() {
@@ -32,14 +33,29 @@ export default class Room {
         });
       }
 
-      if (child.name === "Screen") {
-        child.material = new THREE.MeshBasicMaterial({
+      if (child.name === "M1_imac_set") {
+        child.children[13].material = new THREE.MeshBasicMaterial({
           map: this.resources.items.screen,
         });
       }
     });
 
+    // Room lamp model lighting
+
+    const pointLight = new THREE.PointLight(0xffcf99, 1, 100);
+    pointLight.position.set(-0.805, 0.5, -0.98);
+    this.actualRoom.add(pointLight);
+
+    const sphereSize = 0.08;
+    // const pointLightHelper = new THREE.PointLightHelper(pointLight, sphereSize);
+    // this.scene.add(pointLightHelper);
+
+    // Add actual room
+
     this.scene.add(this.actualRoom);
+
+    // TO SCALE THE ROOM
+    // this.actualRoom.scale.set(1, 1, 1);
   }
 
   onMouseMove() {
