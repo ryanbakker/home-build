@@ -10,6 +10,7 @@ export default class Room {
     this.resources = this.experience.resources;
     this.room = this.resources.items.room;
     this.actualRoom = this.room.scene;
+    this.roomChildren = {};
 
     this.lerp = {
       current: 0,
@@ -38,6 +39,31 @@ export default class Room {
           map: this.resources.items.screen,
         });
       }
+
+      if (child.name === "mini") {
+        child.position.x = -0.233969;
+        child.position.z = 1.27611;
+      }
+
+      // if (
+      //   child.name === "mail" ||
+      //   child.name === "tile_one" ||
+      //   child.name === "tile_two" ||
+      //   child.name === "tile_three" ||
+      //   child.name === "lamp" ||
+      //   child.name === "bonsai"
+      // ) {
+      //   child.scale.set(0, 0, 0);
+      // }
+
+      child.scale.set(0, 0, 0);
+      if (child.name === "littlecube") {
+        // child.scale.set(1, 1, 1);
+        child.position.set(0, -0.2, 0);
+        child.rotation.y = Math.PI / 4;
+      }
+
+      this.roomChildren[child.name.toLowerCase()] = child;
     });
 
     // Room lamp model lighting
@@ -47,6 +73,9 @@ export default class Room {
     this.actualRoom.add(pointLight);
 
     const sphereSize = 0.08;
+
+    this.roomChildren["pointLight"] = pointLight;
+
     // const pointLightHelper = new THREE.PointLightHelper(pointLight, sphereSize);
     // this.scene.add(pointLightHelper);
 
