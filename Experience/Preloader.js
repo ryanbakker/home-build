@@ -30,59 +30,117 @@ export default class Preloader extends EventEmitter {
   }
 
   firstIntro() {
-    this.timeline = new GSAP.timeline();
+    return new Promise((resolve) => {
+      this.timeline = new GSAP.timeline();
 
-    if (this.device === "desktop") {
-      this.timeline
-        .to(this.roomChildren.littlecube.scale, {
-          x: 1.4,
-          y: 1.4,
-          z: 1.4,
-          ease: "back-out(2.5)",
-          duration: 0.7,
-        })
-        .to(this.room.position, {
-          x: -1,
-          ease: "power1.out",
-          duration: 0.7,
-        });
-    } else {
-      this.timeline
-        .to(this.roomChildren.littlecube.scale, {
-          x: 1.4,
-          y: 1.4,
-          z: 1.4,
-          ease: "back-out(2.5)",
-          duration: 0.7,
-        })
-        .to(this.room.position, {
-          z: -1,
-          ease: "power1.out",
-          duration: 0.7,
-        });
-    }
+      if (this.device === "desktop") {
+        this.timeline
+          .to(this.roomChildren.littlecube.scale, {
+            x: 1.4,
+            y: 1.4,
+            z: 1.4,
+            ease: "back-out(2.5)",
+            duration: 0.7,
+          })
+          .to(this.room.position, {
+            x: -1,
+            ease: "power1.out",
+            duration: 0.7,
+            onComplete: resolve,
+          });
+      } else {
+        this.timeline
+          .to(this.roomChildren.littlecube.scale, {
+            x: 1.4,
+            y: 1.4,
+            z: 1.4,
+            ease: "back-out(2.5)",
+            duration: 0.7,
+          })
+          .to(this.room.position, {
+            z: -1,
+            ease: "power1.out",
+            duration: 0.7,
+            onComplete: resolve,
+          });
+      }
+    });
   }
 
   secondIntro() {
-    this.secondTimeline = new GSAP.timeline();
+    return new Promise((resolve) => {
+      this.secondTimeline = new GSAP.timeline();
 
-    if (this.device === "desktop") {
-      this.secondTimeline.to(this.room.position, {
-        x: 0,
-        y: 0,
-        z: 0,
-        ease: "power1.out",
-        duration: 0.7,
-      });
-    } else {
-      this.secondTimeline.to(this.room.position, {
-        x: 0,
-        y: 0,
-        z: 0,
-        ease: "power1.out",
-        duration: 0.7,
-      });
-    }
+      if (this.device === "desktop") {
+        this.secondTimeline
+          .to(
+            this.room.position,
+            {
+              x: 0,
+              y: 0,
+              z: 0,
+              ease: "power1.out",
+            },
+            "same"
+          )
+          .to(
+            this.roomChildren.littlecube.rotation,
+            {
+              y: 2 * Math.PI + Math.PI / 4,
+            },
+            "same"
+          )
+          .to(
+            this.roomChildren.littlecube.scale,
+            {
+              x: 8,
+              z: 8,
+              y: 8,
+            },
+            "same"
+          )
+          .to(
+            this.camera.orthographicCamera.position,
+            {
+              y: 5,
+              x: -0.4,
+            },
+            "same"
+          )
+          .to(
+            this.roomChildren.littlecube.position,
+            {
+              x: 0,
+              y: 1.40675,
+              z: 0,
+            },
+            "same"
+          )
+          .set(this.roomChildren.body.scale, {
+            x: 1,
+            y: 1,
+            z: 1,
+          })
+          .to(
+            this.roomChildren.littlecube.scale,
+            {
+              x: 0,
+              y: 0,
+              z: 0,
+              duration: 1,
+            },
+            "introtext"
+          );
+      } else {
+        this.secondTimeline.to(this.room.position, {
+          x: 0,
+          y: 0,
+          z: 0,
+          ease: "power1.out",
+          duration: 0.7,
+        });
+      }
+    });
   }
 
   onScroll(e) {
@@ -92,13 +150,13 @@ export default class Preloader extends EventEmitter {
     }
   }
 
-  playIntro() {
-    this.firstIntro();
+  async playIntro() {
+    await this.firstIntro();
     this.scrollOnceEvent = this.onScroll.bind(this);
     window.addEventListener("wheel", this.scrollOnceEvent);
   }
 
-  playSectionIntro() {
-    this.secondIntro();
+  async playSectionIntro() {
+    await this.secondIntro();
   }
 }

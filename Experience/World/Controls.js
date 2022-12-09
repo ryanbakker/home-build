@@ -226,7 +226,7 @@ export default class Controls {
               },
             });
             GSAP.to(section, {
-              borderBotoomLeftRadius: 700,
+              borderBottomLeftRadius: 700,
               scrollTrigger: {
                 trigger: section,
                 start: "bottom bottom",
@@ -245,7 +245,7 @@ export default class Controls {
               },
             });
             GSAP.to(section, {
-              borderBotoomRightRadius: 700,
+              borderBottomRightRadius: 700,
               scrollTrigger: {
                 trigger: section,
                 start: "bottom bottom",
