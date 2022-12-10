@@ -25,6 +25,8 @@ export default class Controls {
 
     GSAP.registerPlugin(ScrollTrigger);
 
+    document.querySelector(".page").getElementsByClassName.overflow = "visible";
+
     this.setSmoothScroll();
     this.setScrollTrigger();
   }
@@ -344,11 +346,11 @@ export default class Controls {
           }
 
           if (child.name === "mail") {
+            console.log(child);
             this.second = GSAP.to(child.scale, {
               x: 1,
               y: 1,
               x: 1,
-              ease: "black.out(2)",
               duration: 0.3,
             });
           }

@@ -10,6 +10,7 @@ import Renderer from "./Renderer";
 import Preloader from "./Preloader";
 
 import World from "./World/World";
+import Controls from "./World/Controls";
 
 export default class Experience {
   static instance;
@@ -20,7 +21,6 @@ export default class Experience {
     }
     Experience.instance = this;
 
-    console.log("Loading...");
     this.canvas = canvas;
     this.scene = new THREE.Scene();
     this.time = new Time();
@@ -31,6 +31,10 @@ export default class Experience {
     this.theme = new Theme();
     this.world = new World();
     this.preloader = new Preloader();
+
+    this.preloader.on("enablecontrols,", () => {
+      this.controls = new Controls();
+    });
 
     this.sizes.on("resize", () => {
       this.resize();
@@ -48,6 +52,7 @@ export default class Experience {
   }
 
   update() {
+    this.preloader.update();
     this.camera.update();
     this.renderer.update();
     this.world.update();

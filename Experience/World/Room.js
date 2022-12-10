@@ -34,7 +34,7 @@ export default class Room {
         });
       }
 
-      if (child.name === "M1_imac_set") {
+      if (child.name === "computer") {
         child.children[13].material = new THREE.MeshBasicMaterial({
           map: this.resources.items.screen,
         });
@@ -84,7 +84,7 @@ export default class Room {
     this.scene.add(this.actualRoom);
 
     // TO SCALE THE ROOM
-    // this.actualRoom.scale.set(1, 1, 1);
+    this.actualRoom.scale.set(1, 1, 1);
   }
 
   onMouseMove() {
